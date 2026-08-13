@@ -30,7 +30,7 @@ test("server-renders Turan's portfolio", async () => {
 
   const html = await response.text();
   assert.match(html, /Turan İnceöz/);
-  assert.match(html, /From.*signal.*to.*system/i);
+  assert.match(html, /Engineering ideas.*working.*software/i);
   assert.match(html, /Emotion Recognition/);
   assert.match(html, /Istanbul Technical University/);
   assert.match(html, /inceoz\.benim\.58@gmail\.com/);

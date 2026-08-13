@@ -95,7 +95,8 @@ export default function Home() {
           <a href="#contact">Contact</a>
         </div>
         <a className="nav-cta" href="/Turan-Inceoz-CV.pdf" download>
-          Résumé <span aria-hidden="true">↓</span>
+          <span>Download CV</span>
+          <small>PDF&nbsp;&nbsp;↓</small>
         </a>
       </nav>
 
@@ -106,9 +107,9 @@ export default function Home() {
             Open to internship opportunities
           </div>
           <h1>
-            From <em>signal</em>
+            Engineering ideas
             <br />
-            to <em>system.</em>
+            into <em>working<br className="mobile-break" /> software.</em>
           </h1>
           <p className="hero-intro">
             I&apos;m <strong>Turan İnceöz</strong>, a fourth-year Computer
@@ -118,10 +119,7 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <a className="primary-button" href="#work">
-              View selected work <Arrow />
-            </a>
-            <a className="text-link" href={links.email}>
-              Let&apos;s talk <Arrow />
+              Explore projects <Arrow />
             </a>
           </div>
           <div className="hero-meta" aria-label="Profile details">
@@ -137,18 +135,27 @@ export default function Home() {
         </div>
 
         <div className="portrait-column">
-          <div className="portrait-frame">
-            <img
-              src="/turan-inceoz.jpg"
-              alt="Turan İnceöz outdoors in Istanbul"
-              width="800"
-              height="800"
-            />
-            <span className="portrait-index">01 / 01</span>
+          <div className="portrait-shell">
+            <div className="portrait-frame">
+              <img
+                src="/turan-inceoz.jpg"
+                alt="Turan İnceöz outdoors in Istanbul"
+                width="800"
+                height="800"
+              />
+              <span className="portrait-location">Istanbul / 2026</span>
+            </div>
+            <div className="portrait-card">
+              <span className="portrait-monogram" aria-hidden="true">TI</span>
+              <div>
+                <strong>Turan İnceöz</strong>
+                <small>Computer Engineering · ITU</small>
+              </div>
+            </div>
           </div>
           <p className="portrait-note">
-            Building at the intersection of data, software and real-world
-            systems.
+            Currently focused on machine learning, automation and system
+            design.
           </p>
         </div>
       </header>
