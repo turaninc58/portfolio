@@ -2,13 +2,13 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render() {
+async function render(path = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("http://localhost/", {
+    new Request(new URL(path, "http://localhost"), {
       headers: { accept: "text/html" },
     }),
     {
@@ -32,9 +32,28 @@ test("server-renders Turan's portfolio", async () => {
   assert.match(html, /Turan İnceöz/);
   assert.match(html, /Engineering ideas.*working.*software/i);
   assert.match(html, /Emotion Recognition/);
+  assert.match(html, /\/work\/emotion-recognition/);
   assert.match(html, /Istanbul Technical University/);
   assert.match(html, /inceoz\.benim\.58@gmail\.com/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
+});
+
+test("server-renders every project case study", async () => {
+  const cases = [
+    ["/work/emotion-recognition", /Subject-aware inference pipeline/],
+    ["/work/algorithmic-trading-system", /Research-to-execution architecture/],
+    ["/work/data-driven-web-application", /End-to-end request path/],
+    ["/work/arm-cortex-m0-paint", /Interrupt-to-pixel control flow/],
+  ];
+
+  for (const [path, expectedHeading] of cases) {
+    const response = await render(path);
+    assert.equal(response.status, 200, `${path} should render successfully`);
+    const html = await response.text();
+    assert.match(html, expectedHeading);
+    assert.match(html, /Key decisions/);
+    assert.match(html, /What the project taught me/);
+  }
 });
 
 test("keeps portfolio metadata and assets production-ready", async () => {

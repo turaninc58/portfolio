@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { projects } from "./project-data";
+
 const links = {
   github: "https://github.com/turaninc58",
   linkedin:
@@ -5,63 +8,6 @@ const links = {
   instagram: "https://www.instagram.com/inceozturan/",
   email: "mailto:inceoz.benim.58@gmail.com",
 };
-
-const work = [
-  {
-    number: "01",
-    status: "Published",
-    title: "Emotion Recognition",
-    kicker: "Machine Learning · Class Kaggle Competition",
-    description:
-      "A reproducible four-class emotion classification pipeline designed around subject-level generalization, not just a strong validation score.",
-    details: [
-      "1st place on the class leaderboard",
-      "StratifiedKFold + GroupKFold validation",
-      "MLP ensembles, calibration and robust preprocessing",
-    ],
-    href: "https://github.com/turaninc58/emotion-recognition",
-    linkLabel: "Explore repository",
-  },
-  {
-    number: "02",
-    status: "In development",
-    title: "Algorithmic Trading System",
-    kicker: "Python · Automation · Applied ML",
-    description:
-      "A modular research environment that brings market data, feature engineering, signal generation, backtesting and paper trading into one workflow.",
-    details: [
-      "Rule-based and data-driven signals",
-      "Risk-aware evaluation workflow",
-      "Structured logging and experiment tracking",
-    ],
-  },
-  {
-    number: "03",
-    status: "Course project",
-    title: "Data-Driven Web Application",
-    kicker: "Full-stack · SQL · Team of 5",
-    description:
-      "A collaborative full-stack application built around a public dataset, spanning interface work, service integration and relational data modeling.",
-    details: [
-      "Frontend and backend contributions",
-      "Database schema and SQL design",
-      "API and data-layer integration",
-    ],
-  },
-  {
-    number: "04",
-    status: "Systems project",
-    title: "ARM Cortex-M0 Paint",
-    kicker: "Assembly · Embedded Systems",
-    description:
-      "A cursor-based paint application implemented under low-level register and instruction constraints, with timer-driven input and canvas updates.",
-    details: [
-      "SysTick interrupt-driven control flow",
-      "Memory-mapped canvas operations",
-      "Input processing with boundary checks",
-    ],
-  },
-];
 
 const skillGroups = [
   {
@@ -220,29 +166,32 @@ export default function Home() {
         </div>
 
         <div className="work-list">
-          {work.map((project) => (
+          {projects.map((project) => (
             <article className="work-card" key={project.number}>
-              <div className="work-number">{project.number}</div>
-              <div className="work-main">
-                <div className="work-topline">
-                  <span>{project.kicker}</span>
-                  <span className="work-status">{project.status}</span>
+              <Link
+                className="work-card-link"
+                href={`/work/${project.slug}`}
+                aria-label={`Read the ${project.title} case study`}
+              >
+                <div className="work-number">{project.number}</div>
+                <div className="work-main">
+                  <div className="work-topline">
+                    <span>{project.kicker}</span>
+                    <span className="work-status">{project.status}</span>
+                  </div>
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  <ul>
+                    {project.details.map((detail) => (
+                      <li key={detail}>{detail}</li>
+                    ))}
+                  </ul>
+                  <div className="work-card-action">
+                    <span>View full case study</span>
+                    <span className="work-card-arrow" aria-hidden="true">↗</span>
+                  </div>
                 </div>
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                <ul>
-                  {project.details.map((detail) => (
-                    <li key={detail}>{detail}</li>
-                  ))}
-                </ul>
-                {project.href ? (
-                  <a href={project.href} target="_blank" rel="noreferrer">
-                    {project.linkLabel} <Arrow />
-                  </a>
-                ) : (
-                  <span className="coming-soon">Case study in progress</span>
-                )}
-              </div>
+              </Link>
             </article>
           ))}
         </div>
