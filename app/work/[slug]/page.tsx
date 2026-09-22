@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { PortfolioEffects } from "../../portfolio-effects";
 import { getProject, projects } from "../../project-data";
 import { ProjectDiagram } from "../project-diagram";
 
@@ -60,6 +61,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <main className={`project-page project-page--${project.theme}`}>
+      <PortfolioEffects />
       <nav className="site-nav project-site-nav" aria-label="Project navigation">
         <Link className="monogram" href="/" aria-label="Turan İnceöz, home">
           T<span>/</span>I
@@ -80,7 +82,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <small>/ {String(projects.length).padStart(2, "0")}</small>
         </div>
 
-        <div className="project-hero-copy">
+        <div className="project-hero-copy" data-reveal>
           <div className="project-eyebrow">
             <span className="status-dot" />
             {project.status}
@@ -88,6 +90,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <p className="project-kicker">{project.kicker}</p>
           <h1>{project.title}</h1>
           <p className="project-deck">{project.description}</p>
+
+          <div className="project-hero-stack" aria-label="Technologies">
+            {project.stack.map((technology) => (
+              <span key={technology}>{technology}</span>
+            ))}
+          </div>
 
           {(project.repository || project.report) && (
             <div className="project-actions">
@@ -115,7 +123,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           )}
         </div>
 
-        <dl className="project-meta">
+        <dl className="project-meta" data-reveal>
           <div>
             <dt>Year</dt>
             <dd>{project.year}</dd>
@@ -131,11 +139,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </dl>
       </header>
 
-      <section className="project-visual-section" aria-label="System architecture">
+      <section className="project-visual-section" aria-label="System architecture" data-reveal>
         <ProjectDiagram project={project} />
       </section>
 
-      <section className="project-story" aria-label="Project overview">
+      <section className="project-story" aria-label="Project overview" data-reveal>
         <div className="project-story-heading">
           <span>01 / Context</span>
           <h2>What I built<br />and why.</h2>
@@ -156,7 +164,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
-      <section className="project-decisions">
+      <section className="project-decisions" data-reveal>
         <div className="project-section-heading">
           <span>02 / Engineering</span>
           <h2>Key decisions</h2>
@@ -176,7 +184,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
-      <section className="project-outcomes">
+      <section className="project-outcomes" data-reveal>
         <div className="project-stack-panel">
           <span>Technical toolkit</span>
           <h2>Built with</h2>
